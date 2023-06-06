@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>FORM</title>
+</head>
+<body>
+    <h1>REGISTRATION FORM</h1>
+    <form id="myForm">
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" required></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="filteredTable" class="table-container"></div>
+
+    <script>
+        // Event listener for form submission
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Validate the form inputs
+            var firstName = document.getElementById('firstName').value.trim();
+            var lastName = document.getElementById('lastName').value.trim();
+            var gender = document.getElementById('gender').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var address = document.getElementById('address').value.trim();
+
+            // Error flag to check if any validation errors occurred
+            var hasErrors = false;
+
+            // Validate first name
+            if (firstName === '') {
+                document.getElementById('firstName').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('firstName').classList.remove('error');
+            }
+
+            // Validate last name
+            if (lastName === '') {
+                document.getElementById('lastName').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('lastName').classList.remove('error');
+            }
+
+            // Validate gender
+            if (gender === '') {
+                document.getElementById('gender').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('gender').classList.remove('error');
+            }
+
+            // Validate email
+            if (email === '') {
+                document.getElementById('email').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('email').classList.remove('error');
+            }
+
+            // Validate phone number
+            if (phone === '') {
+                document.getElementById('phone').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('phone').classList.remove('error');
+            }
+
+            // Validate address
+            if (address === '') {
+                document.getElementById('address').classList.add('error');
+                hasErrors = true;
+            } else {
+                document.getElementById('address').classList.remove('error');
+            }
+
+            // If any validation errors occurred, return without storing the data
+            if (hasErrors) {
+                return;
+            }
+
+            // Create an object to store the form data
+            var formData = {
+                firstName: firstName,
+                lastName: lastName,
+                gender: gender,
+                email: email,
+                phone: phone,
+                address: address
+            };
+
+            // Store the data in a table or perform any other operations you require
+            console.log(formData); // Replace with your own code to store the data
+
+            // Filter out male gender and create a new table
+            var filteredData = [];
+            if (formData.gender === 'male') {
+                filteredData.push(formData);
+            }
+
+            // Create the filtered table
+            var tableHtml = '<table>';
+            tableHtml += '<thead><tr><th>First Name</th><th>Last Name</th><th>Gender</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead>';
+            tableHtml += '<tbody>';
+            for (var i = 0; i < filteredData.length; i++) {
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + filteredData[i].firstName + '</td>';
+                tableHtml += '<td>' + filteredData[i].lastName + '</td>';
+                tableHtml += '<td>' + filteredData[i].gender + '</td>';
+                tableHtml += '<td>' + filteredData[i].email + '</td>';
+                tableHtml += '<td>' + filteredData[i].phone + '</td>';
+                tableHtml += '<td>' + filteredData[i].address + '</td>';
+                tableHtml += '</tr>';
+            }
+            tableHtml += '</tbody>';
+            tableHtml += '</table>';
+
+            document.getElementById('filteredTable').innerHTML = tableHtml;
+        });
+    </script>
+</body>
+</html>
